@@ -1,14 +1,16 @@
 @startuml
-abstract class Person {
+class Actor{
     -name : String
     -surname : String
     -country : String
     -age : Integer
-}
-class Actor extends Person{
     -moviesActed : List<Movie>
 }
-class Director extends Person{
+class Director{
+    -name : String
+    -surname : String
+    -country : String
+    -age : Integer
     -moviesDirected : List<Movie>
 }
 
