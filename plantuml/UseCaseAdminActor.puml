@@ -1,0 +1,7 @@
+@startuml
+    package ActorManagement {
+        Admin --> (saveActor)
+        Admin --> (updateActor)
+        Admin --> (deleteActor)
+    }
+@enduml

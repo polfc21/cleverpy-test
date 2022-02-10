@@ -1,0 +1,8 @@
+@startuml
+    package ActorManagement {
+        User --> (getActors)
+        User --> (getActorByNameAndSurname)
+        User --> (getActorsByAge)
+        User --> (getActorsByCountry)
+    }
+@enduml

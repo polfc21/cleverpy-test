@@ -1,0 +1,8 @@
+@startuml
+    package DirectorManagement {
+        User --> (getDirectors)
+        User --> (getDirectorByNameAndSurname)
+        User --> (getDirectorsByAge)
+        User --> (getDirectorsByCountry)
+    }
+@enduml

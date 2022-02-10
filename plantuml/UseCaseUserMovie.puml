@@ -1,0 +1,10 @@
+@startuml
+    package MovieManagement {
+        User --> (getMovies)
+        User -right-> (getMovieByTitle)
+        User -down-> (getMovieByYear)
+        User -left-> (getMovieByLanguage)
+        User -up-> (getMovieByGenre)
+        User --> (getMovieByDuration)
+    }
+@enduml

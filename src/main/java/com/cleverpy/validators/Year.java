@@ -1,0 +1,15 @@
+package com.cleverpy.validators;
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.*;
+
+@Documented
+@Constraint(validatedBy = YearValidator.class)
+@Target( { ElementType.FIELD , ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Year {
+    String message() default "Invalid Year";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
+}

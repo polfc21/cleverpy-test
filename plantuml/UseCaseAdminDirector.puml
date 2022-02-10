@@ -1,0 +1,7 @@
+@startuml
+    package DirectorManagement {
+        Admin --> (saveDirector)
+        Admin --> (updateDirector)
+        Admin --> (deleteDirector)
+    }
+@enduml

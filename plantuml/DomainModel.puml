@@ -1,0 +1,38 @@
+@startuml
+abstract class Person {
+    -name : String
+    -surname : String
+    -country : String
+    -age : Integer
+}
+class Actor extends Person{
+    -moviesActed : List<Movie>
+}
+class Director extends Person{
+    -moviesDirected : List<Movie>
+}
+
+class Movie {
+    -title : String
+    -year : Integer
+    -language : String
+    -duration : Integer
+    -filmGenre : FilmGenre
+    -director : Director
+    -cast : List<Actor>
+}
+
+enum FilmGenre {
+    ACTION
+    COMEDY
+    CRIME
+    FANTASY
+    HORROR
+    THRILLER
+}
+
+Movie "*" -- "1..*" Actor
+Movie "*" -- "1" Director
+Movie "*" --> "1" FilmGenre
+
+@enduml

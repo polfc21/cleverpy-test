@@ -1,0 +1,7 @@
+@startuml
+    package MovieManagement {
+        Admin --> (saveMovie)
+        Admin --> (updateMovie)
+        Admin --> (deleteMovie)
+    }
+@enduml
