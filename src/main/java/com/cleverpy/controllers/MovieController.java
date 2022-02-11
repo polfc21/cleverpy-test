@@ -43,7 +43,7 @@ public class MovieController {
     }
 
     @GetMapping
-    @ApiOperation(notes = "Retrieve all movies that are saved in the database", value = "Get all employees")
+    @ApiOperation(notes = "Retrieve all movies that are saved in the database", value = "Get all movies")
     @ApiResponses(value = { @ApiResponse(code = 200, message = MovieController.OK_MOVIES_MESSAGE),
                             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIES_MESSAGE)})
     public ResponseEntity<List<MovieDTO>> getAllMovies() {
