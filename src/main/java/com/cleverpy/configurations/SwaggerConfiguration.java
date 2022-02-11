@@ -28,8 +28,8 @@ public class SwaggerConfiguration {
 
     private ApiInfo getApiInfo() {
         return new ApiInfo(
-                "Movies API",
-                "Movies API with all CRUD operations",
+                "Cleverpy Test",
+                "API with CRUD operations in Movies, Actors and Directors",
                 "1.0",
                 "https://github.com/polfc21",
                 new Contact("Pol Farreny Capdevila", "https://github.com/polfc21", "polfarreny@gmail.com"),
