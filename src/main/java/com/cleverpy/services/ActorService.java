@@ -9,6 +9,7 @@ public interface ActorService {
     List<ActorDTO> getAllActors();
     List<ActorDTO> getActorsByAge(Integer age);
     List<ActorDTO> getActorsByCountry(String country);
+    List<ActorDTO> getActorsByGender(String gender);
     ActorDTO getActorByNameAndSurname(String name, String surname);
     ActorDTO createActor(ActorDTO actorDTO);
     ActorDTO updateActor(Integer id, ActorDTO actorDTO);

@@ -2,6 +2,7 @@ package com.cleverpy.services;
 
 import com.cleverpy.dtos.ActorDTO;
 import com.cleverpy.entities.ActorEntity;
+import com.cleverpy.entities.GenderType;
 import com.cleverpy.repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,15 @@ public class ActorServiceImpl implements ActorService {
     @Override
     public List<ActorDTO> getActorsByCountry(String country) {
         return this.actorRepository.getActorEntitiesByCountry(country)
+                .stream()
+                .map(ActorDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ActorDTO> getActorsByGender(String gender) {
+        GenderType genderType = GenderType.valueOf(gender.toUpperCase());
+        return this.actorRepository.getActorEntitiesByGenderType(genderType)
                 .stream()
                 .map(ActorDTO::new)
                 .collect(Collectors.toList());

@@ -2,11 +2,13 @@ package com.cleverpy.services;
 
 import com.cleverpy.dtos.DirectorDTO;
 import com.cleverpy.entities.DirectorEntity;
+import com.cleverpy.entities.GenderType;
 import com.cleverpy.repositories.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +46,15 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
+    public List<DirectorDTO> getDirectorsByGender(String gender) {
+        GenderType genderType = GenderType.valueOf(gender.toUpperCase());
+        return this.directorRepository.getDirectorEntitiesByGenderType(genderType)
+                .stream()
+                .map(DirectorDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public DirectorDTO getDirectorByNameAndSurname(String name, String surname) {
         DirectorEntity directorEntity = this.directorRepository.getDirectorEntityByNameAndSurname(name, surname);
         return new DirectorDTO(directorEntity);
@@ -56,7 +67,17 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
-    public DirectorDTO updateDirector(DirectorDTO directorDTO) {
+    public DirectorDTO updateDirector(Integer id, DirectorDTO directorDTO) {
+        Optional<DirectorEntity> optionalDirector = this.directorRepository.findById(id);
+        if (optionalDirector.isPresent()) {
+            DirectorEntity directorEntity = this.directorRepository.getById(id);
+            directorEntity.setName(directorDTO.getName());
+            directorEntity.setSurname(directorDTO.getSurname());
+            directorEntity.setCountry(directorDTO.getCountry());
+            directorEntity.setAge(directorDTO.getAge());
+            this.directorRepository.save(directorEntity);
+            return new DirectorDTO(directorEntity);
+        }
         return null;
     }
 

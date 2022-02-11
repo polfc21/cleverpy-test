@@ -82,7 +82,7 @@ public class MovieController {
     public ResponseEntity<MovieDTO> getMoviesByTitle(@PathVariable @NotBlank String title) {
         MovieDTO movieDTO = this.movieService.getMovieByTitle(title);
         if (movieDTO == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(movieDTO, HttpStatus.OK);
     }
@@ -90,12 +90,15 @@ public class MovieController {
     @PostMapping
     public ResponseEntity<MovieDTO> createMovie(@Valid @RequestBody MovieDTO movieDTO) {
         MovieDTO movieDTOCreated = this.movieService.createMovie(movieDTO);
-        return new ResponseEntity<>(movieDTOCreated, HttpStatus.OK);
+        return new ResponseEntity<>(movieDTOCreated, HttpStatus.CREATED);
     }
 
     @PutMapping(MovieController.ID)
     public ResponseEntity<MovieDTO> updateMovie(@PathVariable Integer id, @Valid @RequestBody MovieDTO movieDTO) {
         MovieDTO movieDTOUpdated = this.movieService.updateMovie(id, movieDTO);
+        if (movieDTOUpdated == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(movieDTOUpdated, HttpStatus.OK);
     }
 

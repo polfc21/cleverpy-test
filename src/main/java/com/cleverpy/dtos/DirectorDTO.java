@@ -1,6 +1,7 @@
 package com.cleverpy.dtos;
 
 import com.cleverpy.entities.DirectorEntity;
+import com.cleverpy.validators.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,16 +30,21 @@ public class DirectorDTO {
     @Positive
     private Integer age;
 
+    @NonNull
+    @Gender
+    private String gender;
+
     public DirectorDTO(DirectorEntity director) {
         this.id = director.getId();
         this.name = director.getName();
         this.surname = director.getSurname();
         this.country = director.getCountry();
         this.age = director.getAge();
+        this.gender = director.getGenderType().name();
     }
 
     public DirectorEntity toDirectorEntity() {
-        return new DirectorEntity(this.name, this.surname, this.country, this.age);
+        return new DirectorEntity(this.name, this.surname, this.country, this.age, this.gender.toUpperCase());
     }
 
 }

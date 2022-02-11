@@ -30,13 +30,18 @@ public class ActorEntity {
     @NonNull
     private Integer age;
 
+    @Enumerated(EnumType.STRING)
+    @NonNull
+    private GenderType genderType;
+
     @ManyToMany(mappedBy = "cast")
     private List<MovieEntity> moviesActed;
 
-    public ActorEntity(String name, String surname, String country, Integer age) {
+    public ActorEntity(String name, String surname, String country, Integer age, String gender) {
         this.name = name;
         this.surname = surname;
         this.country = country;
         this.age = age;
+        this.genderType = GenderType.valueOf(gender);
     }
 }

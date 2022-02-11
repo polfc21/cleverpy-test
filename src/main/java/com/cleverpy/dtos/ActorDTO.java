@@ -1,6 +1,7 @@
 package com.cleverpy.dtos;
 
 import com.cleverpy.entities.ActorEntity;
+import com.cleverpy.validators.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,10 @@ public class ActorDTO {
     @NonNull
     @Positive
     private Integer age;
+
+    @NonNull
+    @Gender
+    private String gender;
     
     public ActorDTO(ActorEntity actor) {
         this.id = actor.getId();
@@ -35,10 +40,11 @@ public class ActorDTO {
         this.surname = actor.getSurname();
         this.country = actor.getCountry();
         this.age = actor.getAge();
+        this.gender = actor.getGenderType().name();
     }
 
     public ActorEntity toActorEntity() {
-        return new ActorEntity(this.name, this.surname, this.country, this.age);
+        return new ActorEntity(this.name, this.surname, this.country, this.age, this.gender.toUpperCase());
     }
 
 }

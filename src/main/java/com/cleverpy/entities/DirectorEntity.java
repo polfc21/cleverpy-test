@@ -30,14 +30,19 @@ public class DirectorEntity {
     @NonNull
     private Integer age;
 
+    @Enumerated(EnumType.STRING)
+    @NonNull
+    private GenderType genderType;
+
     @OneToMany(mappedBy = "director")
     private List<MovieEntity> moviesDirected;
 
-    public DirectorEntity(String name, String surname, String country, Integer age) {
+    public DirectorEntity(String name, String surname, String country, Integer age, String gender) {
         this.name = name;
         this.surname = surname;
         this.country = country;
         this.age = age;
+        this.genderType = GenderType.valueOf(gender);
     }
 
 }
