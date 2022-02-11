@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = GenderValidator.class)
-@Target( { ElementType.FIELD , ElementType.PARAMETER})
+@Target( { ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Gender {
     String message() default "Invalid Gender";

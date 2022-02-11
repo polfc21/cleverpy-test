@@ -3,6 +3,8 @@ package com.cleverpy.services;
 import com.cleverpy.dtos.DirectorDTO;
 import com.cleverpy.entities.DirectorEntity;
 import com.cleverpy.entities.GenderType;
+import com.cleverpy.exceptions.GenderException;
+import com.cleverpy.exceptions.NotFoundException;
 import com.cleverpy.repositories.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,41 +25,79 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public List<DirectorDTO> getAllDirectors() {
-        return this.directorRepository.findAll()
+        List<DirectorDTO> directorsDTO = this.directorRepository.findAll()
                 .stream()
                 .map(DirectorDTO::new)
                 .collect(Collectors.toList());
+        if (directorsDTO.isEmpty()) {
+            throw new NotFoundException("No directors found in the database.");
+        }
+        return directorsDTO;
     }
 
     @Override
     public List<DirectorDTO> getDirectorsByAge(Integer age) {
-        return this.directorRepository.getDirectorEntitiesByAge(age)
+        List<DirectorDTO> directorsDTO = this.directorRepository.getDirectorEntitiesByAge(age)
                 .stream()
                 .map(DirectorDTO::new)
                 .collect(Collectors.toList());
+        if (directorsDTO.isEmpty()) {
+            throw new NotFoundException("No directors found with " + age + " age.");
+        }
+        return directorsDTO;
     }
 
     @Override
     public List<DirectorDTO> getDirectorsByCountry(String country) {
-        return this.directorRepository.getDirectorEntitiesByCountry(country)
+        List<DirectorDTO> directorsDTO = this.directorRepository.getDirectorEntitiesByCountry(country)
                 .stream()
                 .map(DirectorDTO::new)
                 .collect(Collectors.toList());
+        if (directorsDTO.isEmpty()) {
+            throw new NotFoundException("No directors found with " + country + " country.");
+        }
+        return directorsDTO;
     }
 
     @Override
     public List<DirectorDTO> getDirectorsByGender(String gender) {
-        GenderType genderType = GenderType.valueOf(gender.toUpperCase());
-        return this.directorRepository.getDirectorEntitiesByGenderType(genderType)
-                .stream()
-                .map(DirectorDTO::new)
-                .collect(Collectors.toList());
+        if (this.existsGender(gender)) {
+            List<DirectorDTO> directorsDTO =
+                    this.directorRepository.getDirectorEntitiesByGenderType(this.getGenderType(gender))
+                            .stream()
+                            .map(DirectorDTO::new)
+                            .collect(Collectors.toList());
+            if (directorsDTO.isEmpty()) {
+                throw new NotFoundException("No directors found with " + gender + " gender.");
+            }
+            return directorsDTO;
+        }
+        throw new GenderException("Gender " + gender + " no registered in the database.");
+    }
+
+    private boolean existsGender(String gender) {
+        return GenderType.existsGender(gender.toUpperCase());
+    }
+
+    private GenderType getGenderType(String gender) {
+        return GenderType.valueOf(gender.toUpperCase());
     }
 
     @Override
     public DirectorDTO getDirectorByNameAndSurname(String name, String surname) {
         DirectorEntity directorEntity = this.directorRepository.getDirectorEntityByNameAndSurname(name, surname);
+        if (directorEntity == null) {
+            throw new NotFoundException("No director found with " + name + " name and " + surname + " surname");
+        }
         return new DirectorDTO(directorEntity);
+    }
+
+    @Override
+    public DirectorEntity getDirectorById(Integer id) {
+        if (this.directorRepository.existsById(id)) {
+            return this.directorRepository.getById(id);
+        }
+        throw new NotFoundException("No director saved with " + id + " id");
     }
 
     @Override
@@ -78,13 +118,14 @@ public class DirectorServiceImpl implements DirectorService {
             this.directorRepository.save(directorEntity);
             return new DirectorDTO(directorEntity);
         }
-        return null;
+        throw new NotFoundException("No director found with " + id + " id");
     }
 
     @Override
     public void deleteDirector(Integer id) {
-        if (this.directorRepository.existsById(id)) {
-            this.directorRepository.deleteById(id);
+        if (!this.directorRepository.existsById(id)) {
+            throw new NotFoundException("No director found with " + id + " id");
         }
+        this.directorRepository.deleteById(id);
     }
 }

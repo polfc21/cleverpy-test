@@ -3,6 +3,8 @@ package com.cleverpy.services;
 import com.cleverpy.dtos.ActorDTO;
 import com.cleverpy.entities.ActorEntity;
 import com.cleverpy.entities.GenderType;
+import com.cleverpy.exceptions.GenderException;
+import com.cleverpy.exceptions.NotFoundException;
 import com.cleverpy.repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,40 +26,70 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public List<ActorDTO> getAllActors() {
-        return this.actorRepository.findAll()
+        List<ActorDTO> actorsDTO = this.actorRepository.findAll()
                 .stream()
                 .map(ActorDTO::new)
                 .collect(Collectors.toList());
+        if (actorsDTO.isEmpty()) {
+            throw new NotFoundException("No actors found in the database.");
+        }
+        return actorsDTO;
     }
 
     @Override
     public List<ActorDTO> getActorsByAge(Integer age) {
-        return this.actorRepository.getActorEntitiesByAge(age)
+        List<ActorDTO> actorsDTO = this.actorRepository.getActorEntitiesByAge(age)
                 .stream()
                 .map(ActorDTO::new)
                 .collect(Collectors.toList());
+        if (actorsDTO.isEmpty()) {
+            throw new NotFoundException("No actors found with " + age + " age.");
+        }
+        return actorsDTO;
     }
 
     @Override
     public List<ActorDTO> getActorsByCountry(String country) {
-        return this.actorRepository.getActorEntitiesByCountry(country)
+        List<ActorDTO> actorsDTO = this.actorRepository.getActorEntitiesByCountry(country)
                 .stream()
                 .map(ActorDTO::new)
                 .collect(Collectors.toList());
+        if (actorsDTO.isEmpty()) {
+            throw new NotFoundException("No actors found with " + country + " country.");
+        }
+        return actorsDTO;
     }
 
     @Override
     public List<ActorDTO> getActorsByGender(String gender) {
-        GenderType genderType = GenderType.valueOf(gender.toUpperCase());
-        return this.actorRepository.getActorEntitiesByGenderType(genderType)
-                .stream()
-                .map(ActorDTO::new)
-                .collect(Collectors.toList());
+        if (this.existsGender(gender)) {
+            List<ActorDTO> actorsDTO =
+                    this.actorRepository.getActorEntitiesByGenderType(this.getGenderType(gender))
+                    .stream()
+                    .map(ActorDTO::new)
+                    .collect(Collectors.toList());
+            if (actorsDTO.isEmpty()) {
+                throw new NotFoundException("No actors found with " + gender + " gender.");
+            }
+            return actorsDTO;
+        }
+        throw new GenderException("Gender " + gender + " no registered in the database.");
+    }
+
+    private boolean existsGender(String gender) {
+        return GenderType.existsGender(gender.toUpperCase());
+    }
+
+    private GenderType getGenderType(String gender) {
+        return GenderType.valueOf(gender.toUpperCase());
     }
 
     @Override
     public ActorDTO getActorByNameAndSurname(String name, String surname) {
         ActorEntity actorEntity = this.actorRepository.getActorEntityByNameAndSurname(name, surname);
+        if (actorEntity == null) {
+            throw new NotFoundException("No actor found with " + name + " name and " + surname + " surname");
+        }
         return new ActorDTO(actorEntity);
     }
 
@@ -79,14 +111,15 @@ public class ActorServiceImpl implements ActorService {
             this.actorRepository.save(actorEntity);
             return new ActorDTO(actorEntity);
         }
-        return null;
+        throw new NotFoundException("No actor found with " + id + " id");
     }
 
     @Override
     @Transactional
     public void deleteActor(Integer id) {
-        if (this.actorRepository.existsById(id)) {
-            this.actorRepository.deleteById(id);
+        if (!this.actorRepository.existsById(id)) {
+            throw new NotFoundException("No actor found with " + id + " id");
         }
+        this.actorRepository.deleteById(id);
     }
 }

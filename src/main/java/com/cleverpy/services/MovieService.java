@@ -12,7 +12,7 @@ public interface MovieService {
     List<MovieDTO> getMoviesByLanguage(String language);
     List<MovieDTO> getMoviesByDuration(Integer duration);
     MovieDTO getMovieByTitle(String title);
-    MovieDTO createMovie(MovieDTO movieDTO);
+    MovieDTO createMovie(Integer directorId, MovieDTO movieDTO);
     MovieDTO updateMovie(Integer id, MovieDTO movieDTO);
     void deleteMovie(Integer id);
 

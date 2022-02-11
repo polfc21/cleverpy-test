@@ -1,5 +1,6 @@
 package com.cleverpy.dtos;
 
+import com.cleverpy.entities.DirectorEntity;
 import com.cleverpy.entities.MovieEntity;
 import com.cleverpy.validators.FilmGenre;
 import com.cleverpy.validators.Year;
@@ -49,9 +50,7 @@ public class MovieDTO {
         this.language = movie.getLanguage();
         this.duration = movie.getDuration();
         this.filmGenre = movie.getFilmGenreType().name();
-        if (movie.getDirector() != null) {
-            this.directorDTO = new DirectorDTO(movie.getDirector());
-        }
+        this.directorDTO = new DirectorDTO(movie.getDirector());
         if (movie.getCast() != null) {
             this.castDTO = movie.getCast()
                     .stream()
@@ -60,8 +59,8 @@ public class MovieDTO {
         }
     }
 
-    public MovieEntity toMovieEntity() {
-        return new MovieEntity(this.title, this.year, this.language, this.duration, this.filmGenre.toUpperCase());
+    public MovieEntity toMovieEntity(DirectorEntity directorEntity) {
+        return new MovieEntity(this.title, this.year, this.language, this.duration, this.filmGenre.toUpperCase(), directorEntity);
     }
 
 }

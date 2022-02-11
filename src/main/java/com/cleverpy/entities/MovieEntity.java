@@ -37,6 +37,7 @@ public class MovieEntity {
 
     @ManyToOne
     @JoinColumn(name = "director_id")
+    @NonNull
     private DirectorEntity director;
 
     @JoinTable(
@@ -47,12 +48,13 @@ public class MovieEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<ActorEntity> cast;
 
-    public MovieEntity(String title, Integer year, String language, Integer duration, String filmGenre) {
+    public MovieEntity(String title, Integer year, String language, Integer duration, String filmGenre, DirectorEntity director) {
         this.title = title;
         this.year = year;
         this.language = language;
         this.duration = duration;
         this.filmGenreType = FilmGenreType.valueOf(filmGenre);
+        this.director = director;
     }
 
 }
