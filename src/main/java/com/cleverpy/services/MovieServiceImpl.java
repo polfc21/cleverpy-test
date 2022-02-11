@@ -32,7 +32,7 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public List<MovieDTO> getMoviesByFilmGenre(String filmGenre) {
-        FilmGenreType filmGenreType = FilmGenreType.valueOf(filmGenre);
+        FilmGenreType filmGenreType = FilmGenreType.valueOf(filmGenre.toUpperCase());
         return this.movieRepository.getMovieEntitiesByFilmGenreType(filmGenreType)
                 .stream()
                 .map(MovieDTO::new)

@@ -61,7 +61,7 @@ public class MovieDTO {
     }
 
     public MovieEntity toMovieEntity() {
-        return new MovieEntity(this.title, this.year, this.language, this.duration, this.filmGenre);
+        return new MovieEntity(this.title, this.year, this.language, this.duration, this.filmGenre.toUpperCase());
     }
 
 }
