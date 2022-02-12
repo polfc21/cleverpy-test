@@ -5,8 +5,10 @@ public enum FilmGenreType {
     ACTION,
     COMEDY,
     CRIME,
+    DRAMA,
     FANTASY,
     HORROR,
+    SUSPENSE,
     THRILLER;
 
     public static boolean existsFilmGenre(String filmGenre) {
