@@ -56,4 +56,16 @@ public class MovieEntity {
         this.filmGenreType = FilmGenreType.valueOf(filmGenre);
     }
 
+    public void addActor(ActorEntity actor) {
+        this.cast.add(actor);
+    }
+
+    public void deleteActor(ActorEntity actor) {
+        this.cast.remove(actor);
+    }
+
+    public boolean containsActor(ActorEntity actor) {
+        return this.cast.contains(actor);
+    }
+
 }

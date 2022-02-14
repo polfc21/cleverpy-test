@@ -34,6 +34,7 @@ public class ApiExceptionHandler {
             FilmGenreException.class,
             GenderException.class,
             ParentRowException.class,
+            ActorInMovieException.class,
             org.springframework.web.HttpRequestMethodNotSupportedException.class,
             org.springframework.web.bind.MethodArgumentNotValidException.class,
             org.springframework.http.converter.HttpMessageNotReadableException.class,

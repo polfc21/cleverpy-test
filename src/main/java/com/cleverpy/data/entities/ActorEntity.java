@@ -44,4 +44,8 @@ public class ActorEntity {
         this.age = age;
         this.genderType = GenderType.valueOf(gender);
     }
+
+    public void deleteActorInMoviesActed() {
+        this.moviesActed.forEach(movie -> movie.deleteActor(this));
+    }
 }

@@ -7,7 +7,6 @@ import com.cleverpy.data.entities.GenderType;
 import com.cleverpy.data.repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -82,6 +81,14 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
+    public ActorEntity getActorById(Integer id) {
+        if (this.actorRepository.existsById(id)) {
+            return this.actorRepository.getById(id);
+        }
+        throw new NotFoundException("No actor saved with " + id + " id");
+    }
+
+    @Override
     public ActorEntity createActor(ActorEntity actor) {
         return this.actorRepository.save(actor);
     }
@@ -113,6 +120,7 @@ public class ActorServiceImpl implements ActorService {
         if (!this.actorRepository.existsById(id)) {
             throw new NotFoundException("No actor found with " + id + " id");
         }
+        this.actorRepository.getById(id).deleteActorInMoviesActed();
         this.actorRepository.deleteById(id);
     }
 }

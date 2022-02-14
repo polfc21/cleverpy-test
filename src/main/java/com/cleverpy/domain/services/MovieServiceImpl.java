@@ -1,8 +1,10 @@
 package com.cleverpy.domain.services;
 
+import com.cleverpy.data.entities.ActorEntity;
 import com.cleverpy.data.entities.DirectorEntity;
 import com.cleverpy.data.entities.FilmGenreType;
 import com.cleverpy.data.entities.MovieEntity;
+import com.cleverpy.domain.exceptions.ActorInMovieException;
 import com.cleverpy.domain.exceptions.FilmGenreException;
 import com.cleverpy.domain.exceptions.NotFoundException;
 import com.cleverpy.data.repositories.MovieRepository;
@@ -20,11 +22,13 @@ public class MovieServiceImpl implements MovieService {
 
     private final MovieRepository movieRepository;
     private final DirectorService directorService;
+    private final ActorService actorService;
 
     @Autowired
-    public MovieServiceImpl(MovieRepository movieRepository, DirectorService directorService) {
+    public MovieServiceImpl(MovieRepository movieRepository, DirectorService directorService, ActorService actorService) {
         this.movieRepository = movieRepository;
         this.directorService = directorService;
+        this.actorService = actorService;
     }
 
     @Override
@@ -93,6 +97,14 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public MovieEntity getMovieById(Integer id) {
+        if (this.movieRepository.existsById(id)) {
+            return this.movieRepository.getById(id);
+        }
+        throw new NotFoundException("No movie saved with " + id + " id");
+    }
+
+    @Override
     public MovieEntity createMovie(Integer directorId, MovieEntity movie) {
         DirectorEntity director = this.directorService.getDirectorById(directorId);
         movie.setDirector(director);
@@ -126,6 +138,17 @@ public class MovieServiceImpl implements MovieService {
             throw new NotFoundException("No movie found with " + id + " id");
         }
         this.movieRepository.deleteById(id);
+    }
+
+    @Override
+    public MovieEntity addActorByMovieIdAndActorId(Integer movieId, Integer actorId) {
+        MovieEntity movie = this.getMovieById(movieId);
+        ActorEntity actor = this.actorService.getActorById(actorId);
+        if (movie.containsActor(actor)) {
+            throw new ActorInMovieException("Actor with " + actorId + " id already exists in movie with " + movieId + " id");
+        }
+        movie.addActor(actor);
+        return this.movieRepository.save(movie);
     }
 
 }

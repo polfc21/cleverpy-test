@@ -12,6 +12,7 @@ public interface ActorService {
     List<ActorEntity> getActorsByCountry(String country);
     List<ActorEntity> getActorsByGender(String gender);
     ActorEntity getActorByNameAndSurname(String name, String surname);
+    ActorEntity getActorById(Integer id);
     ActorEntity createActor(ActorEntity actor);
     ActorEntity updateActor(Integer id, ActorEntity actor);
     void deleteActor(Integer id);

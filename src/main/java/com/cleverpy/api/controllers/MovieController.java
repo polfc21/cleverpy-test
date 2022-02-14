@@ -28,6 +28,7 @@ public class MovieController {
     public static final String TITLE = "/title/{title}";
     public static final String ID = "/{id}";
     public static final String DIRECTOR_ID = "/director/{directorId}";
+    public static final String ACTOR_ID = "/actor/{actorId}";
 
     public static final String OK_MOVIE_MESSAGE = "Response ok if the movie was found";
     public static final String OK_MOVIES_MESSAGE = "Response ok if the movies were found";
@@ -193,5 +194,23 @@ public class MovieController {
             @PathVariable Integer id) {
         this.movieService.deleteMovie(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(MovieController.ID + MovieController.ACTOR_ID)
+    @ApiOperation(notes = "Add actor to movie by id's passed by path", value = "Add actor by id to movie by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = MovieController.OK_MOVIE_MESSAGE),
+            @ApiResponse(code = 400, message = MovieController.BAD_REQUEST_INCORRECT_MOVIE_MESSAGE),
+            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
+            @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIE_MESSAGE)
+    })
+    public ResponseEntity<MovieDTO> addActorToMovie(
+            @ApiParam(example = "1", value = "Movie Id", allowableValues = "1, 2, 3, 4, 5", required = true)
+            @PathVariable Integer id,
+            @ApiParam(example = "1", value = "Actor Id", allowableValues = "1, 2, 3, 4, 5", required = true)
+            @PathVariable Integer actorId) {
+        MovieDTO movieDTO = new MovieDTO(this.movieService.addActorByMovieIdAndActorId(id, actorId));
+        return new ResponseEntity<>(movieDTO, HttpStatus.OK);
     }
 }

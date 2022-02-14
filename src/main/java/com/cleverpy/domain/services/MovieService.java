@@ -13,8 +13,10 @@ public interface MovieService {
     List<MovieEntity> getMoviesByLanguage(String language);
     List<MovieEntity> getMoviesByDuration(Integer duration);
     MovieEntity getMovieByTitle(String title);
+    MovieEntity getMovieById(Integer id);
     MovieEntity createMovie(Integer directorId, MovieEntity movie);
     MovieEntity updateMovie(Integer id, MovieEntity movie);
     void deleteMovie(Integer id);
+    MovieEntity addActorByMovieIdAndActorId(Integer movieId, Integer actorId);
 
 }
