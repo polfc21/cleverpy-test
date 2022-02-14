@@ -7,6 +7,8 @@ import com.cleverpy.data.entities.DirectorEntity;
 import com.cleverpy.data.entities.GenderType;
 import com.cleverpy.data.repositories.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,12 +25,12 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
-    public List<DirectorEntity> getAllDirectors() {
-        List<DirectorEntity> directors = this.directorRepository.findAll();
+    public List<DirectorEntity> getAllDirectors(Pageable pageable) {
+        Page<DirectorEntity> directors = this.directorRepository.findAll(pageable);
         if (directors.isEmpty()) {
             throw new NotFoundException("No directors found in the database.");
         }
-        return directors;
+        return directors.getContent();
     }
 
     @Override

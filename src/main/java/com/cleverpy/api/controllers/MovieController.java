@@ -4,6 +4,7 @@ import com.cleverpy.api.dtos.MovieDTO;
 import com.cleverpy.domain.services.MovieService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,8 +54,9 @@ public class MovieController {
             @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIES_MESSAGE)
     })
-    public ResponseEntity<List<MovieDTO>> getAllMovies() {
-        List<MovieDTO> moviesDTO = this.movieService.getAllMovies()
+    public ResponseEntity<List<MovieDTO>> getAllMovies(@RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "3") int size) {
+        List<MovieDTO> moviesDTO = this.movieService.getAllMovies(PageRequest.of(page, size))
                 .stream()
                 .map(MovieDTO::new)
                 .collect(Collectors.toList());

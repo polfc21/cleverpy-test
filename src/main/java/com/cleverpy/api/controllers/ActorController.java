@@ -1,15 +1,20 @@
 package com.cleverpy.api.controllers;
 
 import com.cleverpy.api.dtos.ActorDTO;
+import com.cleverpy.data.entities.ActorEntity;
 import com.cleverpy.domain.services.ActorService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,8 +57,10 @@ public class ActorController {
             @ApiResponse(code = 401, message = ActorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = ActorController.NOT_FOUND_ACTORS_MESSAGE)
     })
-    public ResponseEntity<List<ActorDTO>> getAllActors() {
-        List<ActorDTO> actorsDTO = this.actorService.getAllActors()
+    public ResponseEntity<List<ActorDTO>> getAllActors(@RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "3") int size) {
+
+        List<ActorDTO> actorsDTO = this.actorService.getAllActors(PageRequest.of(page, size))
                 .stream()
                 .map(ActorDTO::new)
                 .collect(Collectors.toList());

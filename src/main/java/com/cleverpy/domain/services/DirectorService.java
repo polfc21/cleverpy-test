@@ -1,12 +1,13 @@
 package com.cleverpy.domain.services;
 
 import com.cleverpy.data.entities.DirectorEntity;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface DirectorService {
 
-    List<DirectorEntity> getAllDirectors();
+    List<DirectorEntity> getAllDirectors(Pageable pageable);
     List<DirectorEntity> getDirectorsByAge(Integer age);
     List<DirectorEntity> getDirectorsByCountry(String country);
     List<DirectorEntity> getDirectorsByGender(String gender);

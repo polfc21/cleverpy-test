@@ -6,6 +6,9 @@ import com.cleverpy.data.entities.ActorEntity;
 import com.cleverpy.data.entities.GenderType;
 import com.cleverpy.data.repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,12 +26,12 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public List<ActorEntity> getAllActors() {
-        List<ActorEntity> actors = this.actorRepository.findAll();
+    public List<ActorEntity> getAllActors(Pageable pageable) {
+        Page<ActorEntity> actors = this.actorRepository.findAll(pageable);
         if (actors.isEmpty()) {
             throw new NotFoundException("No actors found in the database.");
         }
-        return actors;
+        return actors.getContent();
     }
 
     @Override

@@ -7,6 +7,8 @@ import com.cleverpy.domain.exceptions.FilmGenreException;
 import com.cleverpy.domain.exceptions.NotFoundException;
 import com.cleverpy.data.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,12 +28,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<MovieEntity> getAllMovies() {
-        List<MovieEntity> movies = this.movieRepository.findAll();
+    public List<MovieEntity> getAllMovies(Pageable pageable) {
+        Page<MovieEntity> movies = this.movieRepository.findAll(pageable);
         if (movies.isEmpty()) {
             throw new NotFoundException("No movies found in the database.");
         }
-        return movies;
+        return movies.getContent();
     }
 
     @Override

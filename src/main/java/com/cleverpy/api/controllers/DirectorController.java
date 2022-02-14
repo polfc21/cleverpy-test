@@ -4,6 +4,7 @@ import com.cleverpy.api.dtos.DirectorDTO;
 import com.cleverpy.domain.services.DirectorService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,8 +53,9 @@ public class DirectorController {
             @ApiResponse(code = 401, message = DirectorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = DirectorController.NOT_FOUND_DIRECTORS_MESSAGE)
     })
-    public ResponseEntity<List<DirectorDTO>> getAllDirectors() {
-        List<DirectorDTO> directorsDTO = this.directorService.getAllDirectors()
+    public ResponseEntity<List<DirectorDTO>> getAllDirectors(@RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "3") int size) {
+        List<DirectorDTO> directorsDTO = this.directorService.getAllDirectors(PageRequest.of(page, size))
                 .stream()
                 .map(DirectorDTO::new)
                 .collect(Collectors.toList());
