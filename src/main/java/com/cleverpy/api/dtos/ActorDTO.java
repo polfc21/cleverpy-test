@@ -5,9 +5,9 @@ import com.cleverpy.domain.validators.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Data
@@ -26,11 +26,11 @@ public class ActorDTO {
     @NotBlank
     private String country;
 
-    @NonNull
+    @NotNull
     @Positive
     private Integer age;
 
-    @NonNull
+    @NotNull
     @Gender
     private String gender;
     

@@ -10,6 +10,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler({
+            org.springframework.security.access.AccessDeniedException.class
+    })
+    @ResponseBody
+    public ErrorMessage unauthorizedRequest(Exception exception) {
+        return new ErrorMessage(exception, HttpStatus.UNAUTHORIZED.value());
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({
             NotFoundException.class

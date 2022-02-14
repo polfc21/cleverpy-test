@@ -6,9 +6,9 @@ import com.cleverpy.domain.validators.Year;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +23,7 @@ public class MovieDTO {
     @NotBlank
     private String title;
 
-    @NonNull
+    @NotNull
     @Year
     private Integer year;
 
@@ -31,10 +31,10 @@ public class MovieDTO {
     private String language;
 
     @Positive
-    @NonNull
+    @NotNull
     private Integer duration;
 
-    @NonNull
+    @NotNull
     @FilmGenre
     private String filmGenre;
 

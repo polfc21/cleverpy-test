@@ -20,7 +20,7 @@ public class SwaggerConfiguration {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.cleverpy.controllers"))
+                .apis(RequestHandlerSelectors.basePackage("com.cleverpy.api.controllers"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(getApiInfo());
