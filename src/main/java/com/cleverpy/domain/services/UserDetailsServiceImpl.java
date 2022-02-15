@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,13 +37,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return this.userBuilder(user.getUsername(), user.getPassword(), new Role[]{Role.AUTHENTICATED}, user.getActive());
     }
 
-    private org.springframework.security.core.userdetails.User userBuilder(String username, String password, Role[] roles,
-                                                                           boolean active) {
+    private User userBuilder(String username, String password, Role[] roles, boolean active) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.withPrefix()));
         }
-        return new org.springframework.security.core.userdetails.User(username, password, active, true,
+        return new User(username, password, active, true,
                 true, true, authorities);
     }
 }
