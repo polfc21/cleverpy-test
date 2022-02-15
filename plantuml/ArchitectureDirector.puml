@@ -1,0 +1,58 @@
+@startuml
+package "cleverpy.com"{
+    package "api" {
+        package "controllers" {
+            class DirectorController
+        }
+        package "dtos" {
+            class DirectorDTO
+        }
+        package "http_errors" {
+            class ApiExceptionHandler
+            class ErrorMessage
+        }
+    }
+    package "domain" {
+        package "services" {
+            class DirectorService
+        }
+        package "exceptions" {
+            class NotFoundException
+            class GenderException
+            class ParentRowException
+        }
+        package "validators" {
+            class GenderValidator
+        }
+    }
+    package "data" {
+        package "repositories" {
+            class DirectorRepository
+        }
+        package "entities" {
+            class DirectorEntity
+        }
+    }
+    DirectorController o--> DirectorService
+    DirectorController ..> DirectorDTO
+    DirectorController ..> ApiExceptionHandler
+
+    ApiExceptionHandler ..> ErrorMessage
+    ApiExceptionHandler ..> NotFoundException
+    ApiExceptionHandler ..> ParentRowException
+    ApiExceptionHandler ..> GenderException
+
+    DirectorDTO ..> GenderValidator
+    DirectorDTO ..> DirectorEntity
+
+    DirectorService o--> DirectorRepository
+    DirectorService ..> NotFoundException
+    DirectorService ..> ParentRowException
+    DirectorService ..> GenderException
+    DirectorService ..> DirectorEntity
+
+    DirectorRepository --> DirectorEntity
+
+}
+
+@enduml

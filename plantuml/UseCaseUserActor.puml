@@ -4,5 +4,6 @@
         User --> (getActorByNameAndSurname)
         User --> (getActorsByAge)
         User --> (getActorsByCountry)
+        User --> (getActorsByGender)
     }
 @enduml

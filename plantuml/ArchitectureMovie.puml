@@ -1,0 +1,71 @@
+@startuml
+package "cleverpy.com"{
+    package "api" {
+        package "controllers" {
+            class MovieController
+        }
+        package "dtos" {
+            class MovieDTO
+            class DirectorDTO
+            class ActorDTO
+        }
+        package "http_errors" {
+            class ApiExceptionHandler
+            class ErrorMessage
+        }
+    }
+    package "domain" {
+        package "services" {
+            class MovieService
+            class DirectorService
+            class ActorService
+        }
+        package "exceptions" {
+            class NotFoundException
+            class ActorInMovieException
+            class FilmGenreException
+        }
+        package "validators" {
+            class FilmGenreValidator
+            class YearValidator
+        }
+    }
+    package "data" {
+        package "repositories" {
+            class MovieRepository
+        }
+        package "entities" {
+            class MovieEntity
+            class DirectorEntity
+            class ActorEntity
+        }
+    }
+    MovieController o--> MovieService
+    MovieController ..> MovieDTO
+    MovieController ..> ApiExceptionHandler
+
+    ApiExceptionHandler ..> ErrorMessage
+    ApiExceptionHandler ..> ActorInMovieException
+    ApiExceptionHandler ..> FilmGenreException
+    ApiExceptionHandler ..> NotFoundException
+
+    MovieDTO ..> FilmGenreValidator
+    MovieDTO ..> YearValidator
+    MovieDTO ..> MovieEntity
+    MovieDTO o--> DirectorDTO
+    MovieDTO --> ActorDTO
+
+    MovieService o--> MovieRepository
+    MovieService o--> DirectorService
+    MovieService o--> ActorService
+    MovieService ..> NotFoundException
+    MovieService ..> ActorInMovieException
+    MovieService ..> FilmGenreException
+    MovieService ..> MovieEntity
+    MovieService ..> ActorEntity
+    MovieService ..> DirectorEntity
+
+    MovieRepository --> MovieEntity
+}
+
+@enduml

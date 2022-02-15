@@ -1,0 +1,55 @@
+@startuml
+package "cleverpy.com"{
+    package "api" {
+        package "controllers" {
+            class ActorController
+        }
+        package "dtos" {
+            class ActorDTO
+        }
+        package "http_errors" {
+            class ApiExceptionHandler
+            class ErrorMessage
+        }
+    }
+    package "domain" {
+        package "services" {
+            class ActorService
+        }
+        package "exceptions" {
+            class NotFoundException
+            class GenderException
+        }
+        package "validators" {
+            class GenderValidator
+        }
+    }
+    package "data" {
+        package "repositories" {
+            class ActorRepository
+        }
+        package "entities" {
+            class ActorEntity
+        }
+    }
+    ActorController o--> ActorService
+    ActorController ..> ActorDTO
+    ActorController ..> ApiExceptionHandler
+
+    ApiExceptionHandler ..> ErrorMessage
+    ApiExceptionHandler ..> NotFoundException
+    ApiExceptionHandler ..> GenderException
+
+    ActorDTO ..> GenderValidator
+    ActorDTO ..> ActorEntity
+
+    ActorService o--> ActorRepository
+    ActorService ..> NotFoundException
+    ActorService ..> GenderException
+    ActorService ..> ActorEntity
+
+    ActorRepository --> ActorEntity
+
+}
+
+@enduml

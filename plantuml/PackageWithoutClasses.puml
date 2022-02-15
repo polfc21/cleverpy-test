@@ -1,0 +1,19 @@
+@startuml
+package "cleverpy.com" {
+  package "configurations"
+  package "api" {
+    package "controllers"
+    package "http_errors"
+    package "dtos"
+  }
+  package "domain" {
+    package "services"
+    package "exceptions"
+    package "validators"
+  }
+  package "data" {
+    package "repositories"
+    package "entities"
+  }
+}
+@enduml

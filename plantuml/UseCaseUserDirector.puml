@@ -4,5 +4,6 @@
         User --> (getDirectorByNameAndSurname)
         User --> (getDirectorsByAge)
         User --> (getDirectorsByCountry)
+        User --> (getDirectorsByGender)
     }
 @enduml
