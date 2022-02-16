@@ -26,4 +26,17 @@ public class ActorEntityTest {
         assertThat(actor.getMoviesActed().size(), is(1));
         assertThat(movie.getCast().size(), is(0));
     }
+
+    @Test
+    void testGivenMovieWhenDeleteMovieOfActedMoviesThenSizeZero() {
+        MovieEntity movie = new MovieEntity();
+        List<MovieEntity> moviesActed = new ArrayList<>();
+        ActorEntity actor = new ActorEntity();
+        moviesActed.add(movie);
+        actor.setMoviesActed(moviesActed);
+
+        actor.deleteMovie(movie);
+
+        assertThat(actor.getMoviesActed().size(), is(0));
+    }
 }

@@ -45,7 +45,7 @@ public class MovieEntity {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name="actor_id")
     )
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     private List<ActorEntity> cast;
 
     public MovieEntity(String title, Integer year, String language, Integer duration, String filmGenre) {
@@ -66,6 +66,10 @@ public class MovieEntity {
 
     public boolean containsActor(ActorEntity actor) {
         return this.cast.contains(actor);
+    }
+
+    public void deleteMovieInActorsOfCast() {
+        this.cast.forEach(actor -> actor.deleteMovie(this));
     }
 
 }

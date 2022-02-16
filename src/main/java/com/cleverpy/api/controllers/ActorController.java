@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
 @RestController
 @RequestMapping(ActorController.ACTORS)
 @Api(tags = "API Rest. Actors management.")
@@ -37,7 +35,6 @@ public class ActorController {
     public static final String NOT_FOUND_ACTORS_MESSAGE = "Response not found if there aren't actors";
     public static final String BAD_REQUEST_GENDER_MESSAGE = "Response bad request if the gender is incorrect";
     public static final String BAD_REQUEST_INCORRECT_ACTOR_MESSAGE = "Response bad request if the actor provided is not correct";
-    public static final String UNAUTHORIZED_MESSAGE = "Response access denied if the role is not granted for this method";
 
     private final ActorService actorService;
 
@@ -50,7 +47,6 @@ public class ActorController {
     @ApiOperation(notes = "Retrieve all actors that are saved in the database", value = "Get all actors")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ActorController.OK_ACTORS_MESSAGE),
-            @ApiResponse(code = 401, message = ActorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = ActorController.NOT_FOUND_ACTORS_MESSAGE)
     })
     public ResponseEntity<List<ActorDTO>> getAllActors(@RequestParam(defaultValue = "0") int page,
@@ -67,7 +63,6 @@ public class ActorController {
     @ApiOperation(notes = "Retrieve all actors that match with age passed by path", value = "Get actors by age")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ActorController.OK_ACTORS_MESSAGE),
-            @ApiResponse(code = 401, message = ActorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = ActorController.NOT_FOUND_ACTORS_MESSAGE)
     })
     public ResponseEntity<List<ActorDTO>> getActorsByAge(
@@ -84,7 +79,6 @@ public class ActorController {
     @ApiOperation(notes = "Retrieve all actors that match with country passed by path", value = "Get actors by country")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ActorController.OK_ACTORS_MESSAGE),
-            @ApiResponse(code = 401, message = ActorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = ActorController.NOT_FOUND_ACTORS_MESSAGE)
     })
     public ResponseEntity<List<ActorDTO>> getActorsByCountry(
@@ -102,7 +96,6 @@ public class ActorController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ActorController.OK_ACTORS_MESSAGE),
             @ApiResponse(code = 400, message = ActorController.BAD_REQUEST_GENDER_MESSAGE),
-            @ApiResponse(code = 401, message = ActorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = ActorController.NOT_FOUND_ACTORS_MESSAGE)
     })
     public ResponseEntity<List<ActorDTO>> getActorsByGender(
@@ -119,7 +112,6 @@ public class ActorController {
     @ApiOperation(notes = "Retrieve actor that match with name and surname passed by path", value = "Get actor by name and surname")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ActorController.OK_ACTOR_MESSAGE),
-            @ApiResponse(code = 401, message = ActorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = ActorController.NOT_FOUND_ACTOR_MESSAGE)
     })
     public ResponseEntity<ActorDTO> getActorByNameAndSurname(
@@ -131,26 +123,22 @@ public class ActorController {
         return new ResponseEntity<>(actorDTO, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ApiOperation(notes = "Create actor with data passed by request body", value = "Create actor")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = ActorController.CREATED_MESSAGE),
             @ApiResponse(code = 400, message = ActorController.BAD_REQUEST_INCORRECT_ACTOR_MESSAGE),
-            @ApiResponse(code = 401, message = ActorController.UNAUTHORIZED_MESSAGE)
     })
     public ResponseEntity<ActorDTO> createActor(@Valid @RequestBody ActorDTO actorDTO) {
         ActorDTO actorDTOCreated = new ActorDTO(this.actorService.createActor(actorDTO.toActorEntity()));
         return new ResponseEntity<>(actorDTOCreated, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(ActorController.ID)
     @ApiOperation(notes = "Update actor by id passed by path and data passed by request body", value = "Update actor by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ActorController.OK_UPDATED_MESSAGE),
             @ApiResponse(code = 400, message = ActorController.BAD_REQUEST_INCORRECT_ACTOR_MESSAGE),
-            @ApiResponse(code = 401, message = ActorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = ActorController.NOT_FOUND_ACTOR_MESSAGE)
     })
     public ResponseEntity<ActorDTO> updateActor(
@@ -161,12 +149,10 @@ public class ActorController {
         return new ResponseEntity<>(actorDTOUpdated, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(ActorController.ID)
     @ApiOperation(notes = "Delete actor by id passed by path", value = "Delete actor by id")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = ActorController.NO_CONTENT_DELETED_MESSAGE),
-            @ApiResponse(code = 401, message = ActorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = ActorController.NOT_FOUND_ACTOR_MESSAGE)
     })
     public ResponseEntity<HttpStatus> deleteActor(

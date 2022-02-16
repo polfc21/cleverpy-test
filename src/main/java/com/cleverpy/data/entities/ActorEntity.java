@@ -48,4 +48,8 @@ public class ActorEntity {
     public void deleteActorInMoviesActed() {
         this.moviesActed.forEach(movie -> movie.deleteActor(this));
     }
+
+    public void deleteMovie(MovieEntity movie) {
+        this.moviesActed.remove(movie);
+    }
 }

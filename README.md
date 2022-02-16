@@ -1,4 +1,4 @@
-# Cleverpy-test
+# Cleverpy-test (Versión sin Spring Security)
 # Introducción
 Este proyecto corresponde con la prueba técnica especificada por Cleverpy Machine Learning,
 para la posición de Backend. Así pues, el objetivo es construir una API REST sobre un modelo
@@ -53,25 +53,22 @@ que se ha decidido que solo se puede añadir películas si tiene un director aso
 no es posible crear una película sin director, aunque sí que se puede hacer sin que aún tenga actores
 asociados. De la misma manera, no se puede eliminar un director que tenga películas asociadas, antes 
 se tendrá que borrar estas películas para luego borrar al director.
-### JWT
-Se ha decidido inicializar la aplicación con dos usuarios ya creados (uno con rol de administrador y otro con rol de customer).
-Queda pendiente realizar una extensa y correcta autenticación, ya que actualmente el método para conseguir
-el token que permite atacar a todos los endpoints de la aplicación, se basa en pasar el username creado
-(admin o customer) como path variable en el endpoint encargado de realizar el login de usuarios.
 
 ## Actores y casos de uso identificados
 Después de haber contextualizado el modelo del dominio del proyecto, el siguiente paso es establecer
-qué actores interactuarán con el sistema creado y de qué manera lo harán. Se ha establecido dos tipos
-de actores, el que tendrá rol de Administrador y el que tendrá rol de Customer. El Administrador podrá
-crear, actualizar y borrar objetos de las clases ya especificadas (como también las tareas que puede
-realizar el Customer). El Customer podrá recuperar datos de todas las entidades, 
-como también de manera específica (filtrando por diferentes atributos)
+qué actores interactuarán con el sistema creado y de qué manera lo harán. 
+Se intentó establecer dos tipos de actores, uno con rol de Administrador y otro con rol de Customer.
+En esta versión, se ha optado por no hacer diferenciación, ya que no se ha incluido seguridad, así que 
+todos los usuarios pueden atacar a todos los endpoints. Así, se podrá 
+crear, actualizar y borrar objetos de las clases ya especificadas, como también recuperar 
+datos de todas las entidades, ya sea filtrando de manera específica (mediante diferentes atributos) o
+recuperando todas las entidades que existen.
 De esta manera, surgen los siguientes diagramas de casos de uso.
-### Administrador
+### Tareas de Crete, Update and Delete
 ![UseCaseAdminMovie](/plantuml/UseCaseAdminMovie.png)
 ![UseCaseAdminDirector](/plantuml/UseCaseAdminDirector.png)
 ![UseCaseAdminActor](/plantuml/UseCaseAdminActor.png)
-### Usuario
+### Tareas de Read
 ![UseCaseUserMovie](/plantuml/UseCaseUserMovie.png)
 ![UseCaseUserDirector](/plantuml/UseCaseUserDirector.png)
 ![UseCaseUserActor](/plantuml/UseCaseUserActor.png)
@@ -89,7 +86,7 @@ se lanzarán cuando haya algún tipo de error y los validadores que se han perso
 atributos de los DTO como sería el año de película, el género de los actores o directores y el tipo de género
 de la película. En la capa DATA tenemos tanto los Repositorios que atacan a la base de datos, como 
 las entidades que se guardan en esta base de datos. La capa CONFIGURATIONS tiene todas las clases
-relacionadas con configurar la seguridad de la aplicación y la documentación de esta.
+relacionadas con configurar el CORS y la documentación de esta API.
 
 ![PackageWithoutClasses](/plantuml/PackageWithoutClasses.png)
 ### Reparto de paquetes y clases
@@ -103,3 +100,12 @@ veremos cuando se gestionan las películas, después con los directores y finalm
 #### Arquitectura Actors
 ![ArchitectureActor](/plantuml/ArchitectureActor.png)
 
+## Tests de la API
+Para testear la API, se ha realizado toda una batería de tests que cubren toda la aplicación, 
+de la misma manera, se ha incluido una carpeta postman en la raíz, en la que se pueden probar los
+diferentes endpoints (ya está configurada con todas las requests, se ha utilizado una variable 
+de entorno que se llama url y corresponde a localhost:8081, que es el puerto que se ha puesto
+para conectarse con la API). 
+También, se ha incluido una carpeta scripts-sql, donde hay dos ficheros .sql, en el que uno se define el 
+esquema de la base de datos, y en el otro se incluyen sentencias insert, cosa que me ha permitido probar
+estos endpoints con unos datos ya inicializados.

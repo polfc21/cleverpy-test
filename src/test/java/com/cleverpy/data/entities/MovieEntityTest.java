@@ -45,4 +45,21 @@ public class MovieEntityTest {
 
         assertThat(isContained, is(false));
     }
+
+    @Test
+    void testGivenMovieWhenDeleteMovieInActorOfCastThenSizeZero() {
+        ActorEntity actor = new ActorEntity();
+        MovieEntity movie = new MovieEntity();
+        List<MovieEntity> moviesActed = new ArrayList<>();
+        List<ActorEntity> cast = new ArrayList<>();
+        moviesActed.add(movie);
+        cast.add(actor);
+        actor.setMoviesActed(moviesActed);
+        movie.setCast(cast);
+
+        movie.deleteMovieInActorsOfCast();
+
+        assertThat(actor.getMoviesActed().size(), is(0));
+        assertThat(movie.getCast().size(), is(1));
+    }
 }

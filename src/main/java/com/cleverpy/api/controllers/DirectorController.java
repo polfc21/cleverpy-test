@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
 @RestController
 @RequestMapping(DirectorController.DIRECTORS)
 @Api(tags = "API Rest. Directors management.")
@@ -37,7 +35,6 @@ public class DirectorController {
     public static final String NOT_FOUND_DIRECTORS_MESSAGE = "Response not found if there aren't directors";
     public static final String BAD_REQUEST_GENDER_MESSAGE = "Response bad request if the gender is incorrect";
     public static final String BAD_REQUEST_INCORRECT_DIRECTOR_MESSAGE = "Response bad request if the director provided is not correct";
-    public static final String UNAUTHORIZED_MESSAGE = "Response access denied if the role is not granted for this method";
 
     private final DirectorService directorService;
 
@@ -50,7 +47,6 @@ public class DirectorController {
     @ApiOperation(notes = "Retrieve all directors that are saved in the database", value = "Get all directors")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = DirectorController.OK_DIRECTORS_MESSAGE),
-            @ApiResponse(code = 401, message = DirectorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = DirectorController.NOT_FOUND_DIRECTORS_MESSAGE)
     })
     public ResponseEntity<List<DirectorDTO>> getAllDirectors(@RequestParam(defaultValue = "0") int page,
@@ -66,7 +62,6 @@ public class DirectorController {
     @ApiOperation(notes = "Retrieve all directors that match with age passed by path", value = "Get directors by age")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = DirectorController.OK_DIRECTORS_MESSAGE),
-            @ApiResponse(code = 401, message = DirectorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = DirectorController.NOT_FOUND_DIRECTORS_MESSAGE)
     })
     public ResponseEntity<List<DirectorDTO>> getDirectorsByAge(
@@ -83,7 +78,6 @@ public class DirectorController {
     @ApiOperation(notes = "Retrieve all directors that match with country passed by path", value = "Get directors by country")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = DirectorController.OK_DIRECTORS_MESSAGE),
-            @ApiResponse(code = 401, message = DirectorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = DirectorController.NOT_FOUND_DIRECTORS_MESSAGE)
     })
     public ResponseEntity<List<DirectorDTO>> getDirectorsByCountry(
@@ -101,7 +95,6 @@ public class DirectorController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = DirectorController.OK_DIRECTORS_MESSAGE),
             @ApiResponse(code = 400, message = DirectorController.BAD_REQUEST_GENDER_MESSAGE),
-            @ApiResponse(code = 401, message = DirectorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = DirectorController.NOT_FOUND_DIRECTORS_MESSAGE)
     })
     public ResponseEntity<List<DirectorDTO>> getDirectorsByGender(
@@ -118,7 +111,6 @@ public class DirectorController {
     @ApiOperation(notes = "Retrieve director that match with name and surname passed by path", value = "Get director by name and surname")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = DirectorController.OK_DIRECTOR_MESSAGE),
-            @ApiResponse(code = 401, message = DirectorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = DirectorController.NOT_FOUND_DIRECTOR_MESSAGE)
     })
     public ResponseEntity<DirectorDTO> getDirectorByNameAndSurname(
@@ -130,26 +122,22 @@ public class DirectorController {
         return new ResponseEntity<>(directorDTO, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ApiOperation(notes = "Create director with data passed by request body", value = "Create director")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = DirectorController.CREATED_MESSAGE),
             @ApiResponse(code = 400, message = DirectorController.BAD_REQUEST_INCORRECT_DIRECTOR_MESSAGE),
-            @ApiResponse(code = 401, message = DirectorController.UNAUTHORIZED_MESSAGE)
     })
     public ResponseEntity<DirectorDTO> createDirector(@Valid @RequestBody DirectorDTO directorDTO) {
         DirectorDTO directorDTOCreated = new DirectorDTO(this.directorService.createDirector(directorDTO.toDirectorEntity()));
         return new ResponseEntity<>(directorDTOCreated, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(DirectorController.ID)
     @ApiOperation(notes = "Update director by id passed by path and data passed by request body", value = "Update director by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = DirectorController.OK_UPDATED_MESSAGE),
             @ApiResponse(code = 400, message = DirectorController.BAD_REQUEST_INCORRECT_DIRECTOR_MESSAGE),
-            @ApiResponse(code = 401, message = DirectorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = DirectorController.NOT_FOUND_DIRECTOR_MESSAGE)
     })
     public ResponseEntity<DirectorDTO> updateDirector(
@@ -160,12 +148,10 @@ public class DirectorController {
         return new ResponseEntity<>(directorDTOUpdated, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(DirectorController.ID)
     @ApiOperation(notes = "Delete director by id passed by path", value = "Delete director by id")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = DirectorController.NO_CONTENT_DELETED_MESSAGE),
-            @ApiResponse(code = 401, message = DirectorController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = DirectorController.NOT_FOUND_DIRECTOR_MESSAGE)
     })
     public ResponseEntity<HttpStatus> deleteDirector(

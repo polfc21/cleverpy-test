@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
 @RestController
 @RequestMapping(MovieController.MOVIES)
 @Api(tags = "API Rest. Movie management.")
@@ -39,7 +37,6 @@ public class MovieController {
     public static final String NOT_FOUND_MOVIES_MESSAGE = "Response not found if there aren't movies";
     public static final String BAD_REQUEST_FILM_GENRE_MESSAGE = "Response bad request if the film genre is incorrect";
     public static final String BAD_REQUEST_INCORRECT_MOVIE_MESSAGE = "Response bad request if the movie provided is not correct";
-    public static final String UNAUTHORIZED_MESSAGE = "Response access denied if the role is not granted for this method";
 
     private final MovieService movieService;
 
@@ -52,7 +49,6 @@ public class MovieController {
     @ApiOperation(notes = "Retrieve all movies that are saved in the database", value = "Get all movies")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MovieController.OK_MOVIES_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIES_MESSAGE)
     })
     public ResponseEntity<List<MovieDTO>> getAllMovies(@RequestParam(defaultValue = "0") int page,
@@ -69,7 +65,6 @@ public class MovieController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MovieController.OK_MOVIES_MESSAGE),
             @ApiResponse(code = 400, message = MovieController.BAD_REQUEST_FILM_GENRE_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIES_MESSAGE)
     })
     public ResponseEntity<List<MovieDTO>> getMoviesByFilmGenre(
@@ -86,7 +81,6 @@ public class MovieController {
     @ApiOperation(notes = "Retrieve all movies that match with year passed by path", value = "Get movies by year")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MovieController.OK_MOVIES_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIES_MESSAGE)
     })
     public ResponseEntity<List<MovieDTO>> getMoviesByYear(
@@ -103,7 +97,6 @@ public class MovieController {
     @ApiOperation(notes = "Retrieve all movies that match with language passed by path", value = "Get movies by language")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MovieController.OK_MOVIES_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIES_MESSAGE)
     })
     public ResponseEntity<List<MovieDTO>> getMoviesByLanguage(
@@ -120,7 +113,6 @@ public class MovieController {
     @ApiOperation(notes = "Retrieve all movies that match with duration (in minutes) passed by path", value = "Get movies by duration")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MovieController.OK_MOVIES_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIES_MESSAGE)
     })
     public ResponseEntity<List<MovieDTO>> getMoviesByDuration(
@@ -137,7 +129,6 @@ public class MovieController {
     @ApiOperation(notes = "Retrieve movie that match with title passed by path", value = "Get movie by title")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MovieController.OK_MOVIE_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIE_MESSAGE)
     })
     public ResponseEntity<MovieDTO> getMoviesByTitle(
@@ -147,13 +138,11 @@ public class MovieController {
         return new ResponseEntity<>(movieDTO, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(MovieController.DIRECTOR_ID)
     @ApiOperation(notes = "Create movie with data passed by request body", value = "Create movie")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = MovieController.CREATED_MESSAGE),
             @ApiResponse(code = 400, message = MovieController.BAD_REQUEST_INCORRECT_MOVIE_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = DirectorController.NOT_FOUND_DIRECTOR_MESSAGE)
     })
     public ResponseEntity<MovieDTO> createMovie(
@@ -164,13 +153,11 @@ public class MovieController {
         return new ResponseEntity<>(movieDTOCreated, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(MovieController.ID)
     @ApiOperation(notes = "Update movie by id passed by path and data passed by request body", value = "Update movie by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MovieController.OK_UPDATED_MESSAGE),
             @ApiResponse(code = 400, message = MovieController.BAD_REQUEST_INCORRECT_MOVIE_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIE_MESSAGE)
     })
     public ResponseEntity<MovieDTO> updateMovie(
@@ -181,12 +168,10 @@ public class MovieController {
         return new ResponseEntity<>(movieDTOUpdated, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(MovieController.ID)
     @ApiOperation(notes = "Delete movie by id passed by path", value = "Delete movie by id")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = MovieController.NO_CONTENT_DELETED_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIE_MESSAGE)
     })
     public ResponseEntity<HttpStatus> deleteMovie(
@@ -196,13 +181,11 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(MovieController.ID + MovieController.ACTOR_ID)
     @ApiOperation(notes = "Add actor to movie by id's passed by path", value = "Add actor by id to movie by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = MovieController.OK_MOVIE_MESSAGE),
             @ApiResponse(code = 400, message = MovieController.BAD_REQUEST_INCORRECT_MOVIE_MESSAGE),
-            @ApiResponse(code = 401, message = MovieController.UNAUTHORIZED_MESSAGE),
             @ApiResponse(code = 404, message = MovieController.NOT_FOUND_MOVIE_MESSAGE)
     })
     public ResponseEntity<MovieDTO> addActorToMovie(
