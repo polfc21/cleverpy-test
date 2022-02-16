@@ -231,9 +231,20 @@ public class MovieServiceImplTest {
 
     @Test
     void testGivenPresentMovieWith1IdWhenDeleteMovieThenMovieDeleted() {
+        MovieEntity movie = new MovieEntity();
+        ActorEntity actor = new ActorEntity();
+        List<MovieEntity> movies = new ArrayList<>();
+        List<ActorEntity> cast = new ArrayList<>();
+        movies.add(movie);
+        cast.add(actor);
+        movie.setCast(cast);
+        actor.setMoviesActed(movies);
+
         when(this.movieRepository.existsById(1)).thenReturn(true);
+        when(this.movieRepository.getById(1)).thenReturn(movie);
         this.movieService.deleteMovie(1);
 
+        verify(this.movieRepository, times(1)).getById(1);
         verify(this.movieRepository, times(1)).deleteById(1);
     }
 

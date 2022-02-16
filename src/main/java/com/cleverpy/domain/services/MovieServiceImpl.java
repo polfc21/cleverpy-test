@@ -137,6 +137,7 @@ public class MovieServiceImpl implements MovieService {
         if (!this.movieRepository.existsById(id)) {
             throw new NotFoundException("No movie found with " + id + " id");
         }
+        this.movieRepository.getById(id).deleteMovieInActorsOfCast();
         this.movieRepository.deleteById(id);
     }
 

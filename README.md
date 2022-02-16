@@ -103,3 +103,16 @@ veremos cuando se gestionan las películas, después con los directores y finalm
 #### Arquitectura Actors
 ![ArchitectureActor](/plantuml/ArchitectureActor.png)
 
+## Tests de la API
+Para testear la API, se ha realizado toda una batería de tests que cubren toda 
+la aplicación excepto la capa de controllers de la API (punto de mejora), 
+de la misma manera, se ha incluido una carpeta postman en la raíz, 
+en la que se pueden probar los diferentes endpoints (ya está configurada con todas 
+las requests, se ha utilizado una variable de entorno que se llama url y corresponde 
+a localhost:8081, que es el puerto que se ha puesto para conectarse con la API)
+(Para hacerlo, hay que cambiar el token que hay en el header, por el token que 
+se obtenga al hacer login, ya sea pasando 'admin' o 'customer' por path variable). 
+También, se ha incluido una carpeta scripts-sql, donde hay dos ficheros .sql, 
+en el que uno se define el esquema de la base de datos, y en el otro se 
+incluyen sentencias insert, cosa que me ha permitido probar estos endpoints con 
+unos datos ya inicializados.

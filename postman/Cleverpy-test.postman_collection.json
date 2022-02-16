@@ -1,0 +1,804 @@
+{
+	"info": {
+		"_postman_id": "3243c7a3-4255-40ab-9442-911e1d3fda9f",
+		"name": "Cleverpy-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Movie Management",
+			"item": [
+				{
+					"name": "Get All Movies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/movies?page=0&size=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movies By Film Genre",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/movies/filmGenre/crime",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies",
+								"filmGenre",
+								"crime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movies By Year",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/movies/year/1970",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies",
+								"year",
+								"1970"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movies By Language",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/movies/language/spanish",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies",
+								"language",
+								"spanish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movies By Duration",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/movies/duration/123",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies",
+								"duration",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movie By Title",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/movies/title/saw",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies",
+								"title",
+								"saw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Movie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"El Padrino\",\n    \"year\" : 1974,\n    \"language\" : \"English\",\n    \"duration\" : 201,\n    \"filmGenre\" : \"crime\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/movies/director/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies",
+								"director",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Movie By Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Mar Adentro\",\n    \"year\" : 2002,\n    \"language\" : \"Spanish\",\n    \"duration\" : 143,\n    \"filmGenre\" : \"Thriller\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/movies/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Movie By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/movies/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Actor By Id To Movie By Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/movies/1/actor/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movies",
+								"1",
+								"actor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Director Management",
+			"item": [
+				{
+					"name": "Get All Directors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/directors?page=0&size=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"directors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Directors By Age",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/directors/age/70",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"directors",
+								"age",
+								"70"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Directors By Country",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/directors/country/spain",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"directors",
+								"country",
+								"spain"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Directors By Gender",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/directors/gender/male",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"directors",
+								"gender",
+								"male"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Director By Name And Surname",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/directors/name/pedro/surname/almodovar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"directors",
+								"name",
+								"pedro",
+								"surname",
+								"almodovar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Director",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pedro\",\n    \"surname\": \"Almodóvar\",\n    \"country\": \"Spain\",\n    \"age\": 70,\n    \"gender\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/directors",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"directors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Director By Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pedro\",\n    \"surname\": \"Almodóvar\",\n    \"country\": \"Spain\",\n    \"age\": 70,\n    \"gender\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/directors/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"directors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Director By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NjI1NzMsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODk4NTczLCJpYXQiOjE2NDQ4NjI1NzMsInVzZXIiOiJhZG1pbiJ9.1inF9csPeUd2OiXhoy6ODS001oUbio1EhEl4UxJVCkg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/directors/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"directors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Actor Management",
+			"item": [
+				{
+					"name": "Get All Actors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/actors?page=0&size=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"actors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Actors By Age",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/actors/age/70",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"actors",
+								"age",
+								"70"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Actors By Country",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/actors/country/spain",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"actors",
+								"country",
+								"spain"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Actors By Gender",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/actors/gender/male",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"actors",
+								"gender",
+								"male"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Actor By Name And Surname",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/actors/name/pedro/surname/almodovar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"actors",
+								"name",
+								"pedro",
+								"surname",
+								"almodovar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Actor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pedro\",\n    \"surname\": \"Almodóvar\",\n    \"country\": \"Spain\",\n    \"age\": 70,\n    \"gender\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/actors",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Actor By Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pol\",\n    \"surname\": \"Farreny Capdevila\",\n    \"country\": \"Spain\",\n    \"age\": 24,\n    \"gender\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/actors/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Actor By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2NDQ4NTMzMTYsInJvbGUiOiJBRE1JTiIsImlzcyI6ImNvbS1jbGV2ZXJweSIsIm5hbWUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjQ0ODg5MzE2LCJpYXQiOjE2NDQ4NTMzMTYsInVzZXIiOiJhZG1pbiJ9.iZ1fCR6ddo4Umv9X1A6dLwImXrPCLDp64GSWGd_FT8Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/actors/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Get Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/token/customer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"token",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8081"
+		}
+	]
+}

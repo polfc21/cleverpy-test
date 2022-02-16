@@ -30,7 +30,6 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({
-            BadRequestException.class,
             FilmGenreException.class,
             GenderException.class,
             ParentRowException.class,
